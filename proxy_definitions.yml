@@ -1,0 +1,212 @@
+# 
+#
+#
+
+# PAGES2k phase 1 dataset (PAGES2k 2013) for LMR prototype (Hakim et al 2016)
+PAGES2kv1:
+  Tree ring_Width: [
+    'Ring width',
+    'Tree ring width',
+    'Total ring width',
+    'TRW'
+    ]
+  Tree ring_Density: [
+    'Maximum density',
+    'Minimum density',
+    'Earlywood density',
+    'Latewood density',
+    'MXD'
+    ]
+  Ice core_d18O: [ 'd18O' ]
+  Ice core_d2H: [ 'd2H' ]
+  Ice core_Accumulation: [ 'Accumulation' ]
+  Coral_d18O: [ 'd18O' ]
+  Coral_Luminescence: [ 'Luminescence' ]
+  Lake sediment_All: [
+    'Varve thickness',
+    'Thickness',
+    'Mass accumulation rate',
+    'Particle-size distribution',
+    'Organic matter',
+    'X-ray density'
+    ]
+  Marine sediment_All: [ 'Mg/Ca' ]
+  Speleothem_All: [ 'Lamina thickness' ]
+
+
+# Last Millennium Reanalysis proxy database (Tardif et al. 2019; Anderson et al. 2019))
+LMRdb:
+  Corals and Sclerosponges_d18O: [
+    'd18O',
+    'delta18O',
+    'd18o',
+    'd18O_stk',
+    'd18O_int',
+    'd18O_norm',
+    'd18o_avg',
+    'd18o_ave',
+    'dO18',
+    'd18O_4'
+    ]
+  Corals and Sclerosponges_SrCa: [
+    'Sr/Ca',
+    'Sr_Ca',
+    'Sr/Ca_norm',
+    'Sr/Ca_anom',
+    'Sr/Ca_int'
+    ]
+  Corals and Sclerosponges_Rates: [
+    'ext',
+    'calc',
+    'calcification',
+    'calcification rate',
+    'composite'
+    ]
+  Ice Cores_d18O: [
+    'd18O',
+    'delta18O',
+    'delta18o',
+    'd18o',
+    'd18o_int',
+    'd18O_int',
+    'd18O_norm',
+    'd18o_norm',
+    'dO18',
+    'd18O_anom'
+    ]
+  Ice Cores_dD: [
+    'deltaD',
+    'delD',
+    'dD'
+    ]
+  Ice Cores_Accumulation: [
+    'accum',
+    'accumu'
+    ]
+  Ice Cores_MeltFeature: [
+    'MFP',
+    'melt'
+    ]
+  Lake Cores_Varve: [
+    'thickness',
+    'varve',
+    'varve_thickness',
+    'varve thickness'
+    ]
+  Lake Cores_BioMarkers: [
+    'Uk37',
+    'TEX86'
+    ]
+  Lake Cores_GeoChem: [
+    'Sr/Ca',
+    'Mg/Ca',
+    'Cl_cont'
+    ]
+  Lake Cores_Misc: [
+    'RABD660_670',
+    'X_radiograph_dark_layer',
+    'massacum'
+    ]
+  Marine Cores_d18O: ['d18O']
+  Marine Cores_uk37: [
+    'uk37',
+    'UK37',
+    ]
+  Marine Cores_tex86: [
+    'tex86',
+    'TEX86',
+    ]
+  Speleothems_d18O: ['d18O']
+  Bivalve_d18O: ['d18O']
+  Tree Rings_WidthBreit: ['trsgi_breit']
+  Tree Rings_WidthPages2: ['trsgi']
+  Tree Rings_WoodDensity: [
+    'max_d',
+    'min_d',
+    'early_d',
+    'earl_d',
+    'density',
+    'late_d',
+    'MXD'
+    ]
+  Tree Rings_Isotopes: ['d18O']
+
+
+# Deep Times proxies
+NCDCdadt:
+  Marine sediments_uk37: [
+    'uk37',
+    'UK37'
+    ]
+  Marine sediments_tex86: [
+    'tex86',
+    'TEX86'
+    ]
+  Marine sediments_d18o_ruberwhite: [
+    'd18o_ruber',
+    'd18O_ruber',
+    'd18O_ruber_stricto',
+    'd18O_ruber_lato',
+    'd18o_ruber_stricto',
+    'd18o_ruber_lato'
+    ]
+  Marine sediments_d18o_sacculifer: [
+    'd18o_sacculifer',
+    'd18O_sacculifer'
+    ]
+  Marine sediments_d18o_bulloides: [
+    'd18o_bulloides',
+    'd18O_bulloides'
+    ]
+  Marine sediments_d18o_pachyderma: [
+    'd18o_pachyderma',
+    'd18O_pachyderma'
+    ]
+  Marine sediments_mgca_ruberwhite_red: [
+    'mgca_ruber:reductive',
+    'mgca_ruber_stricto:reductive'
+    ]
+  Marine sediments_mgca_ruberwhite_bcp: [
+    'mgca_ruber:barker',
+    'mgca_ruber_stricto:barker'
+    ]
+  Marine sediments_mgca_bulloides_red: [
+    'mgca_bulloides:reductive',
+    ]
+  Marine sediments_mgca_bulloides_bcp: [
+    'mgca_bulloides:barker',
+    ]
+  Marine sediments_mgca_sacculifer_red: [
+    'mgca_sacculifer:reductive',
+    ]
+  Marine sediments_mgca_sacculifer_bcp: [
+    'mgca_sacculifer:barker',
+    ]
+  Marine sediments_mgca_pachyderma_red: [
+    'mgca_pachyderma:reductive',
+    ]
+  Marine sediments_mgca_pachyderma_bcp: [
+    'mgca_pachyderma:barker',
+    ]
+#--pooled proxies, for applications to deep geological times (ex. PETM)
+#  Marine sediments_mgca_pooled_red: [
+#    'mgca_ruber:reductive',
+#    'mgca_ruber_lato:reductive',
+#    'mgca_ruber_stricto:reductive',
+#    'mgca_sacculifer:reductive',
+#    'mgca_bulloides:reductive',
+#    'mgca_pachyderma:reductive',
+#    ]
+#  Marine sediments_mgca_pooled_bcp: [
+#    'mgca_ruber:barker',
+#    'mgca_ruber_lato:barker',
+#    'mgca_ruber_stricto:barker',
+#    'mgca_sacculifer:barker',
+#    'mgca_bulloides:barker',
+#    'mgca_pachyderma:barker',
+#    ]
+  Ice Cores_d18O: ['d18o', 'd18O', 'd18oice', 'd18Oice']
+  lake sediment_pollenTemp: [
+    'PollenT',
+    'pollenT',
+    ]

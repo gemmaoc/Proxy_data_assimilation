@@ -1,0 +1,329 @@
+# Configuration parameters for running an LMR reconstruction.  See LMR_config
+# for a description of each parameter.  Here we provide a default setting as an
+# example, not a best-use scenario.
+#
+# The 'null' value resolves to a default path pattern (using lmr_path) for all
+# directory parameters.  For other parameters 'null' signifies the parameter is
+# not used. This is python-interpreted as None. 
+
+wrapper:
+  iter_range:  !!python/tuple [0, 0] #[0, 9] means 10 mc iters
+  param_search: null
+  multi_seed: null
+  multi_seed: [
+     0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,
+     13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,
+     26,  27,  28,  29,  30,  31,  32,  33,  34,  35,  36,  37,  38,
+     39,  40,  41,  42,  43,  44,  45,  46,  47,  48,  49,  50,  51,
+     52,  53,  54,  55,  56,  57,  58,  59,  60,  61,  62,  63,  64,
+     65,  66,  67,  68,  69,  70,  71,  72,  73,  74,  75,  76,  77,
+     78,  79,  80,  81,  82,  83,  84,  85,  86,  87,  88,  89,  90,
+     91,  92,  93,  94,  95,  96,  97,  98,  99, 100
+     ]
+
+core:
+  #prior_(filter)_db_proxies used_psm_(psm for proxy type)_mc_anything else special
+  #nexp: PACE_super_GKO1_all_lin_1mc_1900_2005_psm_calib_GISBrom_1958_2012
+  nexp: LENS2_super_GKO1_all_bilinPSM_1mc_1850_2005_GISBrom
+  
+  lmr_path: /home/disk/eos12/goconnor
+
+  datadir_output: /home/disk/eos12/goconnor/output/wrk
+  archive_dir: /home/disk/eos12/goconnor/output
+
+  online_reconstruction: False
+  clean_start: True
+  use_precalc_ye: True
+  write_posterior_Ye: True
+  recon_period: !!python/tuple [1850,2005] #1900,2005
+  recon_timescale: 1
+#  recon_timescale: 250
+  anom_reference_period: !!python/tuple [1961,1990] #[1961,1990] for GISBrom #[1951, 1980] #anom ref period for proxies and prior. changed 3/12/20 when switched to gisbrom
+  nens: 100
+  seed: null
+  loc_rad: 25000
+  
+  # Ensemble archiving options: ens_full, ens_variance, ens_percentiles, ens_subsample
+  save_archive: ens_full #usually you have ens_full
+  save_archive_percentiles: !!python/tuple [5, 95]
+  save_archive_ens_subsample: 10
+  # Possible regridding reanalysis 2D fields
+  archive_regrid_method: null
+  archive_esmpy_interp_method: bilinear
+  archive_esmpy_regrid_to: t42
+
+proxies:
+  use_from: [LMRdb]
+
+  proxy_frac: 1.0 #0.75
+  proxy_timeseries_kind: anom #asis #as is means not anom for proxies
+  proxy_availability_filter: False
+  proxy_availability_fraction: 1.0
+
+  LMRdb:
+    dbversion: 'vGKO1' #vGKO1_pseudo_iCESM_hist
+    datadir_proxy: null
+    datafile_proxy: 'LMRdb_{}_Proxies.df.pckl'
+    metafile_proxy: 'LMRdb_{}_Metadata.df.pckl'
+    dataformat_proxy: 'DF'
+    regions: [
+      'Antarctica',
+      'Arctic',
+      'Asia',
+      'Australasia',
+      'Europe',
+      'North America',
+      'South America'
+      ]
+    proxy_resolution: [1.0]
+    database_filter: [
+#     'PAGES2kv2',
+#     'LMR'
+      ]
+#these are blacklisted for h-interp, because it has trouble reading special characters in R file. need to fix!
+    proxy_blacklist: [
+#      '13AN17,_13AN18,_13AN19_Sr_Ca_Xu15:tas',
+#      'Hercules_Névé:tas',
+#      'Hercules Névé:accum',
+#      '11DSS01a:tas',
+#      'Bryan_Coas:tas',
+#      '11Gree01b:tas',
+      ]
+
+    proxy_order: [
+#      'Pseudoproxies_tas',
+      'Tree Rings_WidthPages2',
+#      'Tree Rings_WidthBreit',
+      'Tree Rings_WoodDensity',
+      'Tree Rings_Isotopes',
+      'Corals and Sclerosponges_d18O',
+      'Corals and Sclerosponges_SrCa',
+      'Corals and Sclerosponges_Rates',
+      'Ice Cores_d18O',
+      'Ice Cores_dD',
+      'Ice Cores_Accumulation',
+      'Ice Cores_MeltFeature',
+      'Lake Cores_Varve',
+      'Lake Cores_BioMarkers',
+      'Lake Cores_GeoChem',
+      'Lake Cores_Misc',
+      'Marine Cores_d18O',
+      'Speleothems_d18O',
+      'Bivalve_d18O'
+      ]
+    proxy_psm_type:
+      Corals and Sclerosponges_d18O:  linear #h_interp,d18O_sfc_Amon
+      Corals and Sclerosponges_SrCa:  linear #h_interp,d18O_sfc_Amon
+      Corals and Sclerosponges_Rates: linear #h_interp,d18O_sfc_Amon
+      Ice Cores_d18O:                 linear #h_interp,d18O_sfc_Amon
+      Ice Cores_dD:                   linear #h_interp,dD_sfc_Amon
+      Ice Cores_Accumulation:         linear #h_interp,pr_sfc_Amon
+      Ice Cores_MeltFeature:          linear #h_interp,d18O_sfc_Amon
+      Lake Cores_Varve:               linear #h_interp,d18O_sfc_Amon
+      Lake Cores_BioMarkers:          linear #h_interp,d18O_sfc_Amon
+      Lake Cores_GeoChem:             linear #h_interp,d18O_sfc_Amon
+      Lake Cores_Misc:                linear #h_interp,d18O_sfc_Amon
+      Marine Cores_d18O:              linear #h_interp,d18O_sfc_Amon
+      Tree Rings_WidthPages2:         bilinear #h_interp,d18O_sfc_Amon #LINEAR IF PACE or LENS! NO BILIN PSM
+      Tree Rings_WidthBreit:          bilinear #h_interp,d18O_sfc_Amon #LINEAR IF PACE! NO PRECIP
+      Tree Rings_WoodDensity:         linear #h_interp,d18O_sfc_Amon
+      Tree Rings_Isotopes:            linear #h_interp,d18O_sfc_Amon
+      Speleothems_d18O:               linear #h_interp,d18O_sfc_Amon
+      Bivalve_d18O:                   linear #h_interp,d18O_sfc_Amon
+      Pseudoproxies_tas:              h_interp,tas_sfc_Amon
+
+    proxy_assim2:
+      Corals and Sclerosponges_d18O: [
+        'd18O',
+        'delta18O',
+        'd18o',
+        'd18O_stk',
+        'd18O_int',
+        'd18O_norm',
+        'd18o_avg',
+        'd18o_ave',
+        'dO18',
+        'd18O_4'
+        ]
+      Corals and Sclerosponges_SrCa: [
+        'Sr/Ca',
+        'Sr_Ca',
+        'Sr/Ca_norm',
+        'Sr/Ca_anom',
+        'Sr/Ca_int'
+        ]
+      Corals and Sclerosponges_Rates: [
+        'ext',
+        'calc',
+        'calcification',
+        'calcification rate',
+        'composite'
+        ]
+      Ice Cores_d18O: [
+        'd18O',
+        'delta18O',
+        'delta18o',
+        'd18o',
+        'd18o_int',
+        'd18O_int',
+        'd18O_norm',
+        'd18o_norm',
+        'dO18',
+        'd18O_anom'
+        ]
+      Ice Cores_dD: [
+        'deltaD',
+        'delD',
+        'dD'
+        ]
+      Ice Cores_Accumulation: [
+        'accum',
+        'accumu'
+        ]
+      Ice Cores_MeltFeature: ['MFP','melt']
+      Lake Cores_Varve: [
+        'thickness',
+        'varve',
+        'varve_thickness',
+        'varve thickness'
+        ]
+      Lake Cores_BioMarkers: [
+        'Uk37',
+        'TEX86'
+        ]
+      Lake Cores_GeoChem: [
+        'Sr/Ca',
+        'Mg/Ca',
+        'Cl_cont'
+        ]
+      Lake Cores_Misc: [
+        'RABD660_670',
+        'X_radiograph_dark_layer',
+        'massacum'
+        ]
+      Marine Cores_d18O: ['d18O']
+      Pseudoproxies_tas: ['tas']
+      Speleothems_d18O: ['d18O']
+      Bivalve_d18O: ['d18O']
+      Tree Rings_WidthBreit: ['trsgi_breit']
+      Tree Rings_WidthPages2: ['trsgi']
+      Tree Rings_WoodDensity: [
+        'max_d',
+        'min_d',
+        'early_d',
+        'earl_d',
+        'density',
+        'late_d',
+        'MXD'
+        ]
+      Tree Rings_Isotopes: ['d18O']
+
+psm:
+  all_calib_sources:
+    temperature: [GISTEMP, GISTEMP_NicBrom, MLOST, NOAAGlobalTemp, HadCRUT, BerkeleyEarth]
+    moisture: [GPCC, DaiPDSI]
+
+  calib_period: !!python/tuple [1880,2019] #[1850, 2015] GIST, [1958,2012] GISBrom short, [1880,2019] GISBrom full
+#  avgPeriod: annual #annual for h-interp?
+  avgPeriod: season #season for normal linPSM and bilin
+#  season_source: proxy_metadata #for h-interp
+  season_source: psm_calib
+
+  linear:
+    datatag_calib: GISTEMP_NicBrom #GISTEMP
+    pre_calib_datafile: null
+    psm_r_crit: 0.0
+
+  linear_TorP:
+    datatag_calib_T: GISTEMP
+    datatag_calib_P: GPCC
+    pre_calib_datafile_T: null
+    pre_calib_datafile_P: null
+    psm_r_crit: 0.0
+
+  bilinear:
+    datatag_calib_T: GISTEMP_NicBrom
+    datatag_calib_P: GPCC
+    pre_calib_datafile: null
+    psm_r_crit: 0.0
+
+  h_interp:
+    radius_influence: null
+    datadir_obsError: /home/disk/eos12/goconnor/data/proxies/
+    filename_obsError: LMRdb_vGKO1_Pseudo_R.txt #R.txt
+    dataformat_obsError: TXT
+    #datafile_obsError: /home/disk/eos12/goconnor/data/proxies/R.txt
+    datafile_obsError: /home/disk/eos12/goconnor/data/proxies/LMRdb_vGKO1_Pseudo_R.txt
+
+prior:
+#  prior_source: ccsm4_last_millenium
+#  prior_source: icesm_last_millennium
+#  prior_source: PACE_superprior_unfiltered
+#  prior_source: PAC_PACE2_superprior
+#  prior_source: icesm_historical
+#  prior_source: icesm_historical_50yr_low_pass
+#  prior_source: LENS_superprior
+  prior_source: LENS2_superprior
+#  prior_source: LENS_preindustrial
+#  prior_source: mpi-esm-p_last_millennium
+#  prior_source: hadcm3_last_millennium
+
+  state_variables:
+    tas_sfc_Amon: anom
+#    pr_sfc_Amon: anom
+#    scpdsi_sfc_Amon: anom
+    psl_sfc_Amon: anom
+    u10_Amon: anom
+    v10_Amon: anom
+#    sst_Amon: anom
+#    taux_sfc_Amon: anom
+#    tauy_sfc_Amon: anom
+#    zg_500hPa_Amon: anom
+#    wap_500hPa_Amon: anom
+#    wap_700hPa_Amon: anom
+#    wap_850hPa_Amon: anom
+#    d18O_sfc_Amon: anom
+#    dD_sfc_Amon: anom
+#    tos_sfc_Omon: anom
+#    sos_sfc_Omon: anom
+#    ohc_0-700m_Omon: anom
+#    AMOCindex_Omon: anom
+#    AMOC26Nmax_Omon: anom
+#    AMOC26N1000m_Omon: anom
+#    AMOC45N1000m_Omon: anom
+#    ohcAtlanticNH_0-700m_Omon: anom
+#    ohcAtlanticSH_0-700m_Omon: anom
+#    ohcPacificNH_0-700m_Omon: anom
+#    ohcPacificSH_0-700m_Omon: anom
+#    ohcIndian_0-700m_Omon: anom
+#    ohcSouthern_0-700m_Omon: anom
+#    ohcArctic_0-700m_Omon: anom
+#    tas_sfc_Adec: full
+#    psl_sfc_Adec: full
+#    tos_sfc_Odec: full
+#    sos_sfc_Odec: full
+#    tas_sfc_Adecmon: full
+
+# If ensemble/time slice simulations as prior, selection of which member/slice to consider.
+# Set to null or comment out to have all available member/slice considered.
+#  member_simuls: ['iPI.01','i03ka.01'] # icesm "lgm2present" time slice simulations
+#  member_simuls: [0,1,2,3,4,5] # ex.: era20cm
+
+  detrend: True #TRUE!!!
+
+  # regridding options: null, simple, esmpy or spherical_harmonics
+  regrid_method: esmpy
+  # next parameter applies only to *simple* and *spherical_harmonics* options
+  regrid_resolution: 42
+  # specific to *esmpy*
+  esmpy_interp_method: bilinear
+  esmpy_regrid_to: 20CRv3grid #20CRv3grid for 1deg res
+
+  state_variables_info:
+    temperature: [
+      'tas_sfc_Amon'
+      ]
+    moisture: [
+      'pr_sfc_Amon',
+      'scpdsi_sfc_Amon',
+      ]
